@@ -15,23 +15,25 @@ How to configure apllication to work with multi tenant (subdomain).
 
 3. Create models
 
-'rails g scaffold Company name subdomain'
-'rails g scaffold Customer company:belongs_to name'
+```
+rails g scaffold Company name subdomain
+rails g scaffold Customer company:belongs_to name
+```
 
 4. Alter models
 
 - Open model customer and alter belongs_to to acts_as_tenant
-'acts_as_tenant :company'
+`acts_as_tenant :company`
 
 5. Application Controller
 
 - Open application_controller.rb and add the code bellow
-'set_current_tenant_by_subdomain(:company, :subdomain)'
+`set_current_tenant_by_subdomain(:company, :subdomain)`
 
 6. Config
 
 - Open application.rb in folder config and add the code bellow in class Application
-'config.hosts = nil'
+`config.hosts = nil`
 
 7. Don't allow open application without subdomain
 
