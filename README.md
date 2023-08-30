@@ -38,6 +38,8 @@ How to configure apllication to work with multi tenant (subdomain).
 - Open folder initializers and create file acts_as_tenant.rb
 - Paste the code bellow
 
-```ActsAsTenant.configure do |config|
+```
+ActsAsTenant.configure do |config|
     config.require_tenant = true
-end```
+end
+```
