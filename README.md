@@ -1,24 +1,43 @@
-# README
+# Readme
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+How to configure apllication to work with multi tenant (subdomain).
 
-Things you may want to cover:
+* Create new rails apllication
 
-* Ruby version
+- rails new test_multi_tenant2 -j esbuild -c bootstrap -d postgresql
+- Open file database.yml and configure postgres
 
-* System dependencies
+* Install gem:
 
-* Configuration
+- open gemfile
+- add gem 'acts_as_tenant'
+- bundle
 
-* Database creation
+* Create models
 
-* Database initialization
+- rails g scaffold Company name subdomain
+- rails g scaffold Customer company:belongs_to name
 
-* How to run the test suite
+* Alter models
 
-* Services (job queues, cache servers, search engines, etc.)
+- Open model customer and alter belongs_to to acts_as_tenant
+- acts_as_tenant :company
 
-* Deployment instructions
+* Application Controller
 
-* ...
+- Open application_controller.rb and add the code bellow
+- set_current_tenant_by_subdomain(:company, :subdomain)
+
+* Config
+
+- Open application.rb in folder config and add the code bellow in class Application
+- config.hosts = nil
+
+* Don't allow open application without subdomain
+
+- Open folder initializers and create file acts_as_tenant.rb
+- Paste the code bellow
+
+ActsAsTenant.configure do |config|
+    config.require_tenant = true
+end
